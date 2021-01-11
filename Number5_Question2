@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function countTags(n) { // n – это Node
+var tag=document.getElementById("tag");
+var f;
+var numtags = 0; // Инициализируем счетчик тегов
+if (n.nodeType == 1 /*Node.ELEMENT_NODE*/) // Проверяем, является ли n
+// объектом Element
+f= n.tagName;
+numtags++; // Если это так, увеличиваем счетчик
+var children = n.children; // Теперь получаем все дочерние элементы n
+for(var i=0; i < children.length; i++) { // Цикл по всем дочерним элементам
+numtags += countTags(children[i]); // Рекурсия по всем дочерним элементам
+f= f+ ", "+children[i].tagName;
+}
+tag.value= f;
+return numtags; // Возвращаем общее число тегов
+}
+</script>
+</head>
+<!— Это пример использования функции countTags() —>
+<body onload="alert('Количество тегов в документе: ' + countTags(document))">
+Это <i>пример</i> документа.
+<div id="tag"></div>
+</body>
+
+</html>
